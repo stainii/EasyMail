@@ -1,0 +1,30 @@
+{
+  "emailAddress": "my_email@gmail.com",
+  "subscription": {
+    "host": "imap.gmail.com",
+    "password": "my_developer_key",
+    "protocol": "IMAPS",
+    "port": 993,
+    "intervalInMilliseconds": 60000
+  },
+  "sender": {
+    "host": "smtp.gmail.com",
+    "password": "my_developer_key",
+    "port": 587
+  },
+  "contacts": [
+    {
+      "name": "Ann",
+      "email": "example_email@outlook.com",
+      "image": "ann_thumb" //without file extension (.jpg)
+    }, {
+      "name": "Greet",
+      "email": "example_email@telenet.be",
+      "image": "greet_thumb"
+    }, {
+      "name": "Stijn",
+      "email": "example_email@hotmail.com",
+      "image": "stijn_thumb"
+    }
+  ]
+}
