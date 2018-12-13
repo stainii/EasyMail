@@ -34,14 +34,34 @@ TODO
 Provide your own settings file as `app/src/main/assets/easymail.json`.
 You can use `app/src/main/assets/easymail.example.json` as inspiration.
 
-TODO
--- Email address and developer key
--- Contacts and photos
+### Email address, subscription and sender
+Configure the *email address* that will be used in EasyMail to send and receive messages.
+
+Receiving messages is done by the *subscription*. Configure here 
+* the IMAP settings of the mail provider.
+* Also, you can indicate how often should be checked on mail.
+    * If you make this interval smaller:
+        * new messages come in faster, allowing faster interactions
+        * more data is used
+        * the battery will drain faster
+
+Sending messages is done by the *sender*. Configure here the SMTP settings of your mail provider.
+
+
+### Contacts and photos
+The app only shows messages from configured contacts.
+In the *contacts* section of the settings file, provide the name, email address and image name of every contact that should be able communicate with the user.
+
+This image should be put in `/app/src/main/res/drawable`.
+In the settings file, the file extension of the image may *not* be provided. If your file is called `stijn_thumb.jpg`, configure `stijn_thumb`.
 
 ### Response patterns
-When replying, mail clients often add the original mail to the bottom of the reply. "On 20th of September, Stijn Hooft <stijnhooft@example.com> wrote: ".
+When replying, mail clients often add the original mail to the bottom of the reply:
+> "On 20th of September, Stijn Hooft <stijnhooft@example.com> wrote: ".
 
-The mail format is old and simple. There is no option to indicate "here is the start of the previous mail". It's the duty of the app to discover where the new message ends and the thread of previous messages start.
+The technical contract of mail is old and simple. There is no option to indicate "here is the start of the previous mail". It's the duty of the app to discover where the new message ends and the thread of previous messages start.
+
+*When I send a message to my grand mother, she don't needs to see all the previous mails in the same text balloon. How to strip away the old mail thread? How to discover when a message ends and a thread of old messages begin?*
 
 This application executes a a number of regexes on each line of the message. When the regex is met, the mail client assumes that the line is the first line of the thread of previous messages.
 That line, and every line following, will not be shown to the user.
