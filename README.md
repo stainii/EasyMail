@@ -37,7 +37,20 @@ You can use `app/src/main/assets/easymail.example.json` as inspiration.
 TODO
 -- Email address and developer key
 -- Contacts and photos
--- Reply-to patterns to ignore
+
+### Response patterns
+When replying, mail clients often add the original mail to the bottom of the reply. "On 20th of September, Stijn Hooft <stijnhooft@example.com> wrote: ".
+
+The mail format is old and simple. There is no option to indicate "here is the start of the previous mail". It's the duty of the app to discover where the new message ends and the thread of previous messages start.
+
+This application executes a a number of regexes on each line of the message. When the regex is met, the mail client assumes that the line is the first line of the thread of previous messages.
+That line, and every line following, will not be shown to the user.
+
+These regexes are defined in the settings property: "responsePatterns". This is an array of strings.
+
+Sadly, there are is no agreement on how it should be indicated that the message ends and the thread of old messages start.
+Have a test with the people who want to send mails to the user, with all the mail clients they use (computer, phone, browser).
+Check how these clients start an old message and determine the regexes you need to add.
 
 ## Install the app
 TODO
