@@ -12,12 +12,14 @@ import be.stijnhooft.easymail.model.Person;
 import be.stijnhooft.easymail.repository.PersonRepository;
 
 public class MailMapper {
-    private final MailTextFetcher mailTextFetcher = new MailTextFetcher();
-    private final MailFormatter mailFormatter = new MailFormatter();
+    private final MailTextFetcher mailTextFetcher;
+    private final MailFormatter mailFormatter;
     private final Application context;
 
     public MailMapper(Application application) {
         this.context = application;
+        mailFormatter = new MailFormatter(application);
+        mailTextFetcher = new MailTextFetcher();
     }
 
     public Mail mapIncomingMailIfSenderIsKnown(Message message) {

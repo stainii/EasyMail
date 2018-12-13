@@ -26,5 +26,11 @@
       "email": "example_email@hotmail.com",
       "image": "stijn_thumb"
     }
+  ],
+  "responsePatterns": [
+    "<(.+)@(.+)>",
+    "Op .+ heeft .+ het volgende geschreven",
+    "Verzonden vanaf mijn Samsung Galaxy-smartphone",
+    "-------- Oorspronkelijk bericht"
   ]
 }
