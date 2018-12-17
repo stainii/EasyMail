@@ -1,4 +1,4 @@
-package be.stijnhooft.easymail.service.subscription;
+package be.stijnhooft.easymail.service.internal.receiver;
 
 import android.app.Application;
 
@@ -37,7 +37,7 @@ public class MailMapper {
             // create mail
             return new Mail(sender, message.getReceivedDate().toString(), content, true);
         } catch (MessagingException | IOException e) {
-            throw new MailSubscriptionException("An error occurred when receiving mails", e);
+            throw new MailReceiverException("An error occurred when receiving mails", e);
         }
     }
 

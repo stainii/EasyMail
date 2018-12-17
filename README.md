@@ -22,9 +22,15 @@ You can read and respond with your favorite email client.
 I've chosen to use mail as a backend, instead of sms.
 Although this requires her to have access to internet, this opens the possibility to send images to my grandmother.
 
+This creates limitations, of course:
+* The user needs to have access to the internet.
+* Since email does not support push notifications (at least not without having a server at your disposal), there is a periodical pull for new mails. It's not possible to chat real-time.
+    * When the app screen is open and visible, the check runs about every 30 seconds (give or take, Android can decide to do it a little earlier or later).
+    * When the app is hidden/shut down, the check runs every 15 minutes (at most, Android can decide to delay the check to save battery)
+
 # How to use this app yourself?
 
-## Create a Gmail account
+## Create a GMail account
 TODO
 
 ## Create a developer key
@@ -34,10 +40,10 @@ TODO
 Provide your own settings file as `app/src/main/assets/easymail.json`.
 You can use `app/src/main/assets/easymail.example.json` as inspiration.
 
-### Email address, subscription and sender
+### Email address, receiver and sender
 Configure the **email address** that will be used in EasyMail to send and receive messages.
 
-Receiving messages is done by the **subscription**. Configure here 
+Receiving messages is done by the **receiver**. Configure here 
 * the IMAP settings of the mail provider.
 * Also, you can indicate how often should be checked on mail.
     * If you make this interval smaller:
@@ -81,6 +87,17 @@ TODO
 
 ## Set the keyboard 
 TODO
+
+## Disable screen rotation
+Seeing that your screen changes completely is scary for non-tech-savvy people. Especially if it happens "for no reason", for example: when you tilt the phone slightly.
+That's why I **have turned of screen rotation** on my grandmother's phone.
+**At the moment of writing, there is nothing in place to support screen rotation in the app.**
+
+## Turn of battery saving for this app
+Android is very protective about the phone's battery life. When an app uses, relative to other apps, too much battery, it get's less CPU time.
+Since, in my case, this app is the sole meaningful app on the phone, Android is a bit too eager to limit the mail checks in the app.
+
+A workaround: turn of battery saving **for this app** (not for all apps per se).  [More info](https://www.verizonwireless.com/support/knowledge-base-202636/)
 
 # Contributing to this project
 I'm not an Android developer, and that's probably clear when you have a look at the code.

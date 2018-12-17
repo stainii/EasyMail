@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,44 +21,48 @@ import be.stijnhooft.easymail.model.MailViewModel;
 import be.stijnhooft.easymail.model.PersonViewModel;
 import be.stijnhooft.easymail.service.CheckMailService;
 import be.stijnhooft.easymail.service.SendMailService;
+import be.stijnhooft.easymail.service.internal.receiver.MailReceiverWorkManagerFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     private MailViewModel mailViewModel;
     private PersonViewModel personViewModel;
+    private MailReceiverWorkManagerFactory mailReceiverWorkManagerFactory;
     private final OnSelectPersonListener ON_SELECT_PERSON = selectedPerson -> {
         personViewModel.getSelectedPerson().setNewMessages(false);
         personViewModel.setSelectedPerson(selectedPerson);
-        refreshMails();
+        showMailsForCurrentlySelectedPerson();
         ((TextView) findViewById(R.id.selected_person_name)).setText(selectedPerson.getName());
     };
+    private Handler recurrentTaskHandler = new Handler();
+    private Runnable checkForNewMailAtAHighRate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.mailReceiverWorkManagerFactory = new MailReceiverWorkManagerFactory(this.getApplication());
+
         setContentView(R.layout.activity_main);
+
         initViewModels(savedInstanceState);
         initPersonView();
         initAddMessageButton();
-
-        refreshMails();
-
-        Intent service = new Intent(this, CheckMailService.class);
-        startService(service);
+        showMailsForCurrentlySelectedPerson();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        startRecurringCheckOnNewMails();
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle icicle) {
-        super.onSaveInstanceState(icicle);
-        saveViewModel(icicle);
+    protected void onPause() {
+        super.onPause();
+        recurrentTaskHandler.removeCallbacks(checkForNewMailAtAHighRate);
     }
 
-    private void refreshMails() {
+    private void showMailsForCurrentlySelectedPerson() {
         if (personViewModel.getSelectedPerson() != null) {
             mailViewModel.getMessagesFor(personViewModel.getSelectedPerson())
                     .observe(this, this::fillMessageThreadView);
@@ -73,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
             this.personViewModel = (PersonViewModel) savedInstanceState.getSerializable("personViewModel");
             this.mailViewModel = ViewModelProviders.of(this).get(MailViewModel.class);
         }
-    }
-
-    private void saveViewModel(Bundle icicle) {
-        icicle.putSerializable("personViewModel", personViewModel);
     }
 
     private void initPersonView() {
@@ -127,6 +128,29 @@ public class MainActivity extends AppCompatActivity {
             editText.requestFocus();
 
         });
+    }
+
+    private void startRecurringCheckOnNewMails() {
+        // start service that survives the activity. This checks for new mails at a low rate
+        Intent service = new Intent(this, CheckMailService.class);
+        startService(service);
+
+        // start high-rate checking that gets killed if the activity stops.
+
+        checkForNewMailAtAHighRate = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mailReceiverWorkManagerFactory.scheduleOneTime();
+                } finally {
+                    // 100% guarantee that this always happens, even if
+                    // your update method throws an exception
+                    recurrentTaskHandler.postDelayed(this, 30000);
+                }
+            }
+        };
+        recurrentTaskHandler.post(checkForNewMailAtAHighRate);
 
     }
+
 }

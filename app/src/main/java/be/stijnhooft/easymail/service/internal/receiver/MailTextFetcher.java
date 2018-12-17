@@ -1,4 +1,4 @@
-package be.stijnhooft.easymail.service.subscription;
+package be.stijnhooft.easymail.service.internal.receiver;
 
 import java.io.IOException;
 

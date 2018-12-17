@@ -14,8 +14,8 @@ import be.stijnhooft.easymail.model.Person;
 import be.stijnhooft.easymail.repository.MailRepository;
 import be.stijnhooft.easymail.repository.PersonRepository;
 import be.stijnhooft.easymail.repository.SettingRepository;
-import be.stijnhooft.easymail.service.sender.MailSender;
-import be.stijnhooft.easymail.service.sender.MailSenderFactory;
+import be.stijnhooft.easymail.service.internal.sender.MailSender;
+import be.stijnhooft.easymail.service.internal.sender.MailSenderFactory;
 
 public class SendMailService extends IntentService {
 

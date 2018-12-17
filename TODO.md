@@ -1,8 +1,5 @@
 # TODO
 
-* Waarom crasht de mail service altijd?
-    * Mogelijk mag ik de connectie niet zo lang open houden?
-
 * Duidelijkere Activity voor het typen van een bericht
     * waarbij het toetsenbord automatisch open springt
     * "spatie" moet "einde woord" worden

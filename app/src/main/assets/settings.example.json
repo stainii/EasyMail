@@ -1,6 +1,6 @@
 {
   "emailAddress": "my_email@gmail.com",
-  "subscription": {
+  "receiver": {
     "host": "imap.gmail.com",
     "password": "my_developer_key",
     "protocol": "IMAPS",

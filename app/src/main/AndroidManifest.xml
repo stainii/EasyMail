@@ -50,7 +50,7 @@
             android:label="SendMailService" />
 
         <receiver
-            android:name=".receiver.CheckMailReceiver"
+            android:name=".broadcastreceiver.CheckMailBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">

@@ -1,4 +1,4 @@
-package be.stijnhooft.easymail.service.sender;
+package be.stijnhooft.easymail.service.internal.sender;
 
 public class MailSenderException extends RuntimeException {
 
