@@ -1,10 +1,9 @@
-package be.stijnhooft.easymail;
+package be.stijnhooft.easymail.viewAdapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import be.stijnhooft.easymail.R;
 import be.stijnhooft.easymail.model.Mail;
 
 public class MessageThreadViewAdapter extends RecyclerView.Adapter<MessageThreadViewAdapter.ViewHolder> {
@@ -41,13 +41,6 @@ public class MessageThreadViewAdapter extends RecyclerView.Adapter<MessageThread
         } else {
             viewHolder.message.setBackground(ContextCompat.getDrawable(context, R.drawable.outgoing_bubble));
         }
-
-        viewHolder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("RecycleViewAdapter", "onClick: clicked on message");
-            }
-        });
     }
 
     @Override

@@ -1,4 +1,4 @@
-package be.stijnhooft.easymail;
+package be.stijnhooft.easymail.service.internal;
 
 import be.stijnhooft.easymail.model.Person;
 

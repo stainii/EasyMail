@@ -1,4 +1,4 @@
-package be.stijnhooft.easymail;
+package be.stijnhooft.easymail.activity;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
@@ -16,12 +16,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import be.stijnhooft.easymail.R;
 import be.stijnhooft.easymail.model.Mail;
 import be.stijnhooft.easymail.model.MailViewModel;
 import be.stijnhooft.easymail.model.PersonViewModel;
 import be.stijnhooft.easymail.service.CheckMailService;
 import be.stijnhooft.easymail.service.SendMailService;
+import be.stijnhooft.easymail.service.internal.OnSelectPersonListener;
 import be.stijnhooft.easymail.service.internal.receiver.MailReceiverWorkManagerFactory;
+import be.stijnhooft.easymail.viewAdapter.MessageThreadViewAdapter;
+import be.stijnhooft.easymail.viewAdapter.PersonViewAdapter;
 
 public class MainActivity extends AppCompatActivity {
 

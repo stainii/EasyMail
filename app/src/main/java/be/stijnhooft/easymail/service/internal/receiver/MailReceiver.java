@@ -28,7 +28,7 @@ import javax.mail.search.FlagTerm;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 import be.stijnhooft.easymail.EasyMailApplication;
-import be.stijnhooft.easymail.MainActivity;
+import be.stijnhooft.easymail.activity.MainActivity;
 import be.stijnhooft.easymail.model.Mail;
 import be.stijnhooft.easymail.model.Person;
 import be.stijnhooft.easymail.repository.MailRepository;

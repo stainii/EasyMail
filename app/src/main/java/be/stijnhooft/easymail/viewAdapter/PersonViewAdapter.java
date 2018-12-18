@@ -1,4 +1,4 @@
-package be.stijnhooft.easymail;
+package be.stijnhooft.easymail.viewAdapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,7 +13,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import be.stijnhooft.easymail.R;
 import be.stijnhooft.easymail.model.Person;
+import be.stijnhooft.easymail.service.internal.OnSelectPersonListener;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PersonViewAdapter extends RecyclerView.Adapter<PersonViewAdapter.ViewHolder> {

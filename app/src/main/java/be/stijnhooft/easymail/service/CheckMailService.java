@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import be.stijnhooft.easymail.EasyMailApplication;
-import be.stijnhooft.easymail.MainActivity;
 import be.stijnhooft.easymail.R;
+import be.stijnhooft.easymail.activity.MainActivity;
 import be.stijnhooft.easymail.service.internal.receiver.MailReceiverWorkManagerFactory;
 
 public class CheckMailService extends Service {
