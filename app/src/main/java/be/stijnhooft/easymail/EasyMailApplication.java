@@ -17,7 +17,6 @@ public class EasyMailApplication extends Application {
         }
     }
 
-
     //You can call this method from anywhere to get a reference to the application instance
     //you will always get a reference because in order for your component to exist, the application
     //instance MUST already exist

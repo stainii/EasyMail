@@ -52,7 +52,7 @@
         <Key android:codes="33" android:keyLabel="!" android:keyEdgeFlags="right"/>
     </Row>
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="32" android:keyLabel="Spatie" android:keyWidth="70%p" android:keyEdgeFlags="left"/>
-        <Key android:codes="-5" android:keyLabel="Wissen" android:keyWidth="30%p" android:keyEdgeFlags="right"/>
+        <Key android:codes="32" android:keyLabel="@string/keyboard_space" android:keyWidth="70%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-5" android:keyLabel="@string/keyboard_delete" android:keyWidth="30%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

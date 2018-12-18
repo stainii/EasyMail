@@ -82,15 +82,22 @@ Sadly, there are is no agreement on how it should be indicated that the message 
 Have a test with the people who want to send mails to the user, with all the mail clients they use (computer, phone, browser).
 Check how these clients start an old message and determine the regexes you need to add.
 
-## Install the app
+## Translate
+All text, visible in the app, is set in `/app/src/main/res/values/strings.xml`.
+
+Since my native language is Dutch, the provided text is in Dutch. The names of the keys are in English, however, so it should be easy to translate the app in your native language.
+
+
+## Build and install the app
 TODO
 
 ## Set the keyboard 
 TODO
 
 ## Disable screen rotation
-Seeing that your screen changes completely is scary for non-tech-savvy people. Especially if it happens "for no reason", for example: when you tilt the phone slightly.
+Seeing that your screen changes completely is **scary** for non-tech-savvy people. Especially if it happens "for no reason", for example: when you tilt the phone slightly.
 That's why I **have turned of screen rotation** on my grandmother's phone.
+
 **At the moment of writing, there is nothing in place to support screen rotation in the app.**
 
 ## Turn of battery saving for this app

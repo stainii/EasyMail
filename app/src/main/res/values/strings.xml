@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">EasyMail</string>
     <string name="action_settings">Settings</string>
+    <string name="keyboard_space">Einde woord</string>
+    <string name="keyboard_delete">Wissen</string>
+    <string name="main_you_are_talking_with">Je praat nu met</string>
 </resources>
