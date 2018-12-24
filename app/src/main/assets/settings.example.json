@@ -3,7 +3,7 @@
   "receiver": {
     "host": "imap.gmail.com",
     "password": "my_developer_key",
-    "protocol": "IMAPS",
+    "protocol": "imaps",
     "port": 993,
     "intervalInMilliseconds": 60000
   },
@@ -16,7 +16,7 @@
     {
       "name": "Ann",
       "email": "example_email@outlook.com",
-      "image": "ann_thumb" //without file extension (.jpg)
+      "image": "ann_thumb"
     }, {
       "name": "Greet",
       "email": "example_email@telenet.be",
