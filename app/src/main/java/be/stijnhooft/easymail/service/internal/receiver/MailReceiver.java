@@ -11,8 +11,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -54,15 +52,6 @@ public class MailReceiver extends Worker {
         properties.put("mail.store.protocol", getInputData().getString("protocol"));
         properties.put("mail.imaps.host", getInputData().getString("host"));
         properties.put("mail.imaps.port", getInputData().getInt("port", 0));
-
-        //temp
-        Mail mail = new Mail();
-        mail.setMessage("Test " + new Date().toString());
-        mail.setDate(new Date().toString());
-        mail.setEmail("stijnhooft@hotmail.com");
-        mail.setIncoming(true);
-        callback.onReceiveMail(Collections.singletonList(mail));
-        //stop temp
 
         Session session = Session.getDefaultInstance(properties, null);
         try (Store store = session.getStore(getInputData().getString("protocol"))) {
