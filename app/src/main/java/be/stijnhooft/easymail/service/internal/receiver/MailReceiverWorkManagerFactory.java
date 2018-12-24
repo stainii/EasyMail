@@ -67,7 +67,7 @@ public class MailReceiverWorkManagerFactory {
         JSONObject settings = settingRepository.getSettings();
         return new Data.Builder()
                 .putString("emailAddress", settings.getString("emailAddress"))
-                .putString("host", settings.getJSONObject("receiver").getString("password"))
+                .putString("host", settings.getJSONObject("receiver").getString("host"))
                 .putString("password", settings.getJSONObject("receiver").getString("password"))
                 .putString("protocol", settings.getJSONObject("receiver").getString("protocol"))
                 .putInt("port", settings.getJSONObject("receiver").getInt("port"))
