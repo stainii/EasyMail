@@ -30,17 +30,28 @@ This creates limitations, of course:
 
 # How to use this app yourself?
 
-## Create a GMail account
-TODO
+Note: this app has only been tested on a Samsung Galaxy S5, with Android API level 23.
+It's possible that this app does not work on other phones or other API levels.
 
-## Create a developer key
-TODO
+## 1. Create/use a mail account
+I've created a GMail account for my grandmother.
 
-## Personalise the settings
+### 1.1. GMail specific: activate SMTP
+GMail does not allow mails to be fetched with SMTP by default. You can [activate](https://www.lifewire.com/how-to-enable-gmail-via-imap-1170856) this.
+
+### 1.2. GMail specific: activate 2-step authentication and generate an app password
+When testing this app, I've always used my own account. When I created a GMail account for my grandmother, I could not log in with the app. Google's security policy preevented this.
+In order to be able to log in eventually, I've
+1. [activated 2-step authentication](https://myaccount.google.com/u/1/signinoptions/two-step-verification?utm_source=google-account)
+1. [generated an app password](https://myaccount.google.com/u/1/apppasswords?utm_source=google-account)
+
+This generated app password needs to be filled in password in `settings.json` (see next step).
+
+## 2. Personalise the settings
 Provide your own settings file as `app/src/main/assets/easymail.json`.
 You can use `app/src/main/assets/easymail.example.json` as inspiration.
 
-### Email address, receiver and sender
+### 2.1. Email address, receiver and sender
 Configure the **email address** that will be used in EasyMail to send and receive messages.
 
 Receiving messages is done by the **receiver**. Configure here 
@@ -55,7 +66,7 @@ Sending messages is done by the **sender**.
 Configure here the SMTP settings of your mail provider.
 
 
-### Contacts and photos
+### 2.2. Contacts and photos
 The app only shows messages from configured contacts.
 In the *contacts* section of the settings file, provide for everyone that should be able to communicate with the user:
 * name
@@ -64,7 +75,7 @@ In the *contacts* section of the settings file, provide for everyone that should
     * this image should be put in `/app/src/main/res/drawable`.
     * in the settings file, the file extension of the image may **not** be provided. If your file is called `stijn_thumb.jpg`, configure `stijn_thumb`.
 
-### Response patterns
+### 2.3. Response patterns
 When replying, mail clients often add the original mail to the bottom of the reply:
 > "On 20th of September, Stijn Hooft <stijnhooft@example.com> wrote: ".
 
@@ -82,25 +93,35 @@ Sadly, there are is no agreement on how it should be indicated that the message 
 Have a test with the people who want to send mails to the user, with all the mail clients they use (computer, phone, browser).
 Check how these clients start an old message and determine the regexes you need to add.
 
-## Translate
+## 3. Translate
 All text, visible in the app, is set in `/app/src/main/res/values/strings.xml`.
 
 Since my native language is Dutch, the provided text is in Dutch. The names of the keys are in English, however, so it should be easy to translate the app in your native language.
 
 
-## Build and install the app
-TODO
+## 4. Build and install the app
+Build and install this app with Android Studio.
 
-## Set the keyboard 
-TODO
+## 5. Set the keyboard
+Keyboards are weird: the letters are put in the wrong order and the buttons are way too small. At least, that's how non-tech savvy people see it.
+In order to simplify this, the app comes with the most simple keyboard ever:
+* letters ordered alphabetically
+* numbers
+* "end of word" (also known as space)
+* erase
 
-## Disable screen rotation
+No shift, no emoji's, no things that can leave my grandmother in a place she gets confused.
+
+In order to use this keyboard, you have to [change your phone settings](https://www.androidcentral.com/how-set-default-keyboard-your-android-phone).
+
+
+## 6. Disable screen rotation
 Seeing that your screen changes completely is **scary** for non-tech-savvy people. Especially if it happens "for no reason", for example: when you tilt the phone slightly.
 That's why I **have turned of screen rotation** on my grandmother's phone.
 
 **At the moment of writing, there is nothing in place to support screen rotation in the app.**
 
-## Turn of battery saving for this app
+## 7. Turn of battery saving for this app
 Android is very protective about the phone's battery life. When an app uses, relative to other apps, too much battery, it get's less CPU time.
 Since, in my case, this app is the sole meaningful app on the phone, Android is a bit too eager to limit the mail checks in the app.
 
