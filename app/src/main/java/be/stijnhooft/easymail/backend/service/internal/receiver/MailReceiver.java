@@ -161,6 +161,7 @@ public class MailReceiver extends Worker implements LifecycleOwner {
 
 
         Intent targetIntent = new Intent(context, MainActivity.class);
+        targetIntent.putExtra(MainActivity.PERSON_TO_SELECT, sender.getEmail());
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);

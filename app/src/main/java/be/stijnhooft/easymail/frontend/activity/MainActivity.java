@@ -23,7 +23,15 @@ import be.stijnhooft.easymail.backend.service.internal.receiver.MailReceiverWork
 import be.stijnhooft.easymail.frontend.viewAdapter.MessageThreadViewAdapter;
 import be.stijnhooft.easymail.frontend.viewAdapter.PersonViewAdapter;
 
+/**
+ * Optional intent extras:
+ * * PERSON_TO_SHOW: the email address of the person to be selected.
+ *                   If not provided, a person with unread messages will be shown.
+ *                   If all messages are read, the first person of the list is selected.
+ */
 public class MainActivity extends AppCompatActivity {
+
+    public static final String PERSON_TO_SELECT = "PERSON_TO_SELECT";
 
     private MailViewModel mailViewModel;
     private PersonViewModel personViewModel;
@@ -80,10 +88,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void markMessagesAsReadFor(Person person) {
-        messagesOfCurrentlySelectedPerson.removeObservers(this);
-
-        personViewModel.markMessagesAsRead(person);
         if (messagesOfCurrentlySelectedPerson != null) {
+            messagesOfCurrentlySelectedPerson.removeObservers(this);
+            personViewModel.markMessagesAsRead(person);
             final List<Mail> previousMails = messagesOfCurrentlySelectedPerson.getValue();
             if (previousMails != null) {
                 mailViewModel.markAsRead(previousMails);
@@ -99,18 +106,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initPersonViewAndLoadMessages(List<Person> persons) {
-        RecyclerView recyclerView = findViewById(R.id.person_view);
+        selectDefaultPersonIfNecessary(persons);
 
+        RecyclerView recyclerView = findViewById(R.id.person_view);
         PersonViewAdapter adapter = new PersonViewAdapter(this, persons, ON_SELECT_PERSON);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        selectDefaultPersonIfNecessary();
     }
 
-    private void selectDefaultPersonIfNecessary() {
+    private void selectDefaultPersonIfNecessary(List<Person> persons) {
         if (personViewModel.getSelectedPerson() == null) {
-            // TODO: select person with new messages
+            if (persons != null && !persons.isEmpty()) {
+                Person personThatShouldBeSelectedAsDefault = persons.get(0);
+                for (Person p : persons) {
+                    if (getIntent().getStringExtra(PERSON_TO_SELECT) != null ||
+                            (getIntent().getStringExtra(PERSON_TO_SELECT) == null && p.hasNewMessages())) {
+                        personThatShouldBeSelectedAsDefault = p;
+                    }
+                }
+                ON_SELECT_PERSON.onSelectPerson(personThatShouldBeSelectedAsDefault);
+            }
         }
     }
 
