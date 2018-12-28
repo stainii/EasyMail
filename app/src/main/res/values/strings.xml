@@ -4,4 +4,6 @@
     <string name="keyboard_space">Einde woord</string>
     <string name="keyboard_delete">Wissen</string>
     <string name="main_you_are_talking_with">Je praat nu met</string>
+    <string name="title_activity_send_message">SendMessageActivity</string>
+    <string name="send_message_you_send_to">Je stuurt naar</string>
 </resources>

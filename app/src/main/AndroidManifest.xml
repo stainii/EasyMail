@@ -5,8 +5,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".EasyMailApplication"
@@ -17,8 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".frontend.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -27,30 +29,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".frontend.activity.SendMessageActivity"
+            android:label="@string/title_activity_send_message"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".frontend.activity.MainActivity"
+            android:windowSoftInputMode="adjustResize"
+            />
 
         <service
-            android:name=".service.CheckMailService"
+            android:name=".backend.service.CheckMailService"
             android:enabled="true"
             android:exported="false" />
-
         <service
-            android:name=".service.EasyKeyboardService"
+            android:name=".backend.service.EasyKeyboardService"
             android:label="EasyKeyboard"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <meta-data
                 android:name="android.view.im"
-                android:resource="@xml/keyboard_method" />
+                android:resource="@layout/keyboard_method" />
+
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
             </intent-filter>
         </service>
-
         <service
-            android:name=".service.SendMailService"
+            android:name=".backend.service.SendMailService"
             android:label="SendMailService" />
 
         <receiver
-            android:name=".broadcastreceiver.CheckMailBroadcastReceiver"
+            android:name=".backend.broadcastreceiver.CheckMailBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
             android:label="RestartServiceWhenStopped">

@@ -11,4 +11,7 @@
     <corners
         android:radius="20dp">
     </corners>
+
+    <!-- the stroke that shows it's a new message -->
+    <stroke android:width="3dip" android:color="@color/colorAccent2"/>
 </shape>
