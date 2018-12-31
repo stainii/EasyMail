@@ -25,27 +25,30 @@ public class MailFormatter {
         readResponsePatterns();
     }
 
-
     public String stripAwayPreviousMessages(String mail) {
         String lines[] = mail.split("\\r?\\n");
 
-        StringBuilder result = new StringBuilder(lines[0]);
+        if (lines.length > 0) {
+            StringBuilder result = new StringBuilder(lines[0]);
 
-        if (lines.length > 1) {
-            boolean referenceToPreviousMailFound = false;
-            int i = 1;
-            do {
-                if (thereIsAReferenceToPreviousMailOnThisLine(lines[i])) {
-                    referenceToPreviousMailFound = true;
-                } else {
-                    result.append(System.lineSeparator());
-                    result.append(lines[i]);
-                    i++;
-                }
-            } while (!referenceToPreviousMailFound && lines.length > i);
+            if (lines.length > 1) {
+                boolean referenceToPreviousMailFound = false;
+                int i = 1;
+                do {
+                    if (thereIsAReferenceToPreviousMailOnThisLine(lines[i])) {
+                        referenceToPreviousMailFound = true;
+                    } else {
+                        result.append(System.lineSeparator());
+                        result.append(lines[i]);
+                        i++;
+                    }
+                } while (!referenceToPreviousMailFound && lines.length > i);
+            }
+
+            return result.toString().trim();
+        } else {
+            return "";
         }
-
-        return result.toString().trim();
     }
 
     private void readResponsePatterns() {
