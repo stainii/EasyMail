@@ -41,4 +41,13 @@ public class SendMessageActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish(); // if my grandma opens a screen she didn't expect to open, she pushes the home
+        // button to return. If she accidentally opens this activity, she pushes the home button,
+        // opens the app and expects to get back to the main activity. This is not the case:
+        // this activity is on top of the stack, so this activity reopens, instead of the main
+        // activity. That's why I close this activity when it gets paused.
+    }
 }
