@@ -53,7 +53,7 @@ My grandmother never had a smartphone in her hand before. There are a lot of con
   Jup, that's simply too complex...
   
 
-### It should also be easy to use for the family members
+### Oh, and it should also be easy to use for the family members
 Not everyone in my family is that handy with smartphones or computers. For them, receiving and sending messages should also be simple. If at all possible, without an extra app.
 
 **Since my family members know how to use mail, I've chosen to make use of this.**
