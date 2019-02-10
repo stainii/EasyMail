@@ -160,7 +160,7 @@ In order to tackle this, I've **renamed the buttons. Space becomes "End of word"
 
 
 
-## Step 3: Always open the app on the "home" screen, never on the "send message" screen
+## Step 4: Always open the app on the "home" screen, never on the "send message" screen
 As mentioned earlier, my grandmother does not find the back button on the phone. The back button may be always found at the same place, it is not a physical button. The home button is more accessible, since, yeah, it's a real **button**.
 
 **In practice, my grandmother always presses the home button.**
@@ -178,7 +178,7 @@ However, in a default situation, that's not true. When you close an app, then re
 
 [It takes a bit of trickery, but I've managed to let Android always open the home screen of the app, when the app is re-opened.](https://github.com/stainii/EasyMail/commit/2c048ddfd251b96d9c112d963a30ebe4826af7a5)
 
-## Step 4: Finishing touches
+## Step 5: Finishing touches
 ### Change the notification sound to that my grandmother eventually hears
 Since my grandmother's hearing is impaired, she doesn't hear a short notification.
 
