@@ -1,4 +1,4 @@
-# Building an app for my grand mother: barriers and solutions
+# Building an app for my grandmother: barriers and solutions
 
 One of my grandmothers has **difficulties hearing**.
 Doing phone calls has become impossible, even with adapted phones that *yell* in your ear.
@@ -7,7 +7,7 @@ To avoid losing contact, we've tried to teach her how use send texts over sms.
 This wasn't a great success: the keyboard confused her, there were too many steps, too many buttons: it went wrong easily.
 
 Hell, I'm a developer. I surely can come up with an appropriate solution, right?
-I've got an old Samsung Galaxy S5 lying around that my grand mother can use... so let's develop an "easy mail app"!
+I've got an old Samsung Galaxy S5 lying around that my grandmother can use... so let's develop an "easy mail app"!
 
 [*You can find the code on Github.*](https://github.com/stainii/EasyMail)
 
@@ -16,16 +16,16 @@ I've got an old Samsung Galaxy S5 lying around that my grand mother can use... s
 First and for all: what is the need?
 * (must) **Read messages** and know **who has sent the message**
 * (must) **Send messages**. 
-* (nice to have) **Share photos** with my grand mother.
+* (nice to have) **Share photos** with my grandmother.
 
 ### The barriers of receiving a message
 #### Lots of input at once
 When you open an sms app, **the screen is filled** with previous messages with different persons. "What do I do now?", was the reaction.
 
-Bombing someone with data, useful or not, creates strain. Too much strain, in case of my grand mother. 
+Bombing someone with data, useful or not, creates strain. Too much strain, in case of my grandmother. 
 
 ### The barriers of sending a message
-Sending sms messages was too hard. My grand mother got lost in the **keyboard**.
+Sending sms messages was too hard. My grandmother got lost in the **keyboard**.
 
 It contains **too many buttons**, which are, in addition, way **too small**.
 
@@ -33,7 +33,7 @@ Alternatively, we've tried to let her use the an "old keyboard", you know, like 
 Less keys, but also too complicated.
 
 ### The barriers of using a smartphone
-My grand mother never had a smartphone in her hand before. There are a lot of concepts that we find very natural, that she didn't grasp at first.
+My grandmother never had a smartphone in her hand before. There are a lot of concepts that we find very natural, that she didn't grasp at first.
 
 * **How to get back from where I came?**
 	* On Android, the back button is **always on the same place**. That's helpful!
@@ -43,11 +43,11 @@ My grand mother never had a smartphone in her hand before. There are a lot of co
 ![The back button is not a physical button. The home button is, however. So she pushes the latter.](https://stijnhooft.be/portfolio/data/blogposts/building-an-app-for-my-grand-mother/back-button.jpg)
 	
 * **Using a touch screen** is something that needs be learned.
-	* My grand mother has long nails. Touching something with your nails doesn't work.
+	* My grandmother has long nails. Touching something with your nails doesn't work.
 	* If she touches something, she presses the screen long and hard. This doesn't work either: the phone ignores hard and long presses.
 	
 * **What is a notification?**
-	* We are used receiving, checking and reacting to notifications. My grand mother has never heard of it.
+	* We are used receiving, checking and reacting to notifications. My grandmother has never heard of it.
 	 > "What, I need to swipe down to see new messages? What's swiping down?" 
 	
   Jup, that's simply too complex...
@@ -58,10 +58,10 @@ Not everyone in my family is that handy with smartphones or computers. For them,
 
 **Since my family members know how to use mail, I've chosen to make use of this.**
 
-I've created a mail account for my grand mother. The app will act as a mail client.
+I've created a mail account for my grandmother. The app will act as a mail client.
 
-* My family members can send messages to my grandmothers mail address, which will appear in my grand mother's app.
-* When my grand mother sends messages to my mom, the app sends the message to my mother as an email.
+* My family members can send messages to my grandmothers mail address, which will appear in my grandmother's app.
+* When my grandmother sends messages to my mom, the app sends the message to my mother as an email.
 
 One extra benefit: I don't need to run a backend on a server to save and provide the messages. Everything is done via mail.
 
@@ -79,7 +79,7 @@ With that in mind, I've created the following screen.
 
 ![Just people and messages](https://stijnhooft.be/portfolio/data/blogposts/building-an-app-for-my-grand-mother/just-people-and-messages.png)
 
-**There are 5 things my grand mother needs to keep in mind**.
+**There are 5 things my grandmother needs to keep in mind**.
 1. On the left, you have the photos of the people you can talk with. Tap the photo of the person who you want to talk to.
 
 1. In the top border is written who you're talking with. "You're talking with Stijn".	
@@ -101,14 +101,14 @@ The one that got the closest, was [1C Big Keyboard](https://play.google.com/stor
 [![1C Big Keyboard](https://img.youtube.com/vi/P2EQXrgw4Jg/0.jpg)](https://www.youtube.com/watch?v=P2EQXrgw4Jg)
 
 #### Problem 1: The keyboards take up too much space
-Large buttons means: the keyboard takes up most space on the screen. My grand mother would no longer find the field in which she types.
+Large buttons means: the keyboard takes up most space on the screen. My grandmother would no longer find the field in which she types.
 
 #### Problem 2: The order of the buttons make no sense.
 The design of a keyboard's layout takes several factors into account. The most important one: letters that are used frequently in combinations are put close to each other.
 
 In Belgium, the most popular keyboard layout is azerty. Most of the world uses querty. 
 
-**Azerty, querty, ... for my grand mother, the letters on a keyboard are just put in a random order**. She's scanning the whole keyboard for each character she wants to type, again and again. **This makes typing slow and frustrating.**
+**Azerty, querty, ... for my grandmother, the letters on a keyboard are just put in a random order**. She's scanning the whole keyboard for each character she wants to type, again and again. **This makes typing slow and frustrating.**
 
 
 ### Ok, then, let's try to build our own keyboard
@@ -145,7 +145,7 @@ As I've mentioned earlier, an azerty or querty-layout makes no sense for my gran
 **What keyboard layout would logical for her?** I've chosen to go with: ordering the **alphabetically**. Finding the position of a key still requires some thinking, but this process goes a whole lot faster than finding a character in a "random" tangle of keys. 
 
 #### The concept of the "space bar" and "backspace"
-When I first let my grand mother play with my "easy keyboard", I've noticed that she never used 2 buttons: space and backspace.
+When I first let my grandmother play with my "easy keyboard", I've noticed that she never used 2 buttons: space and backspace.
 
 She just **kept typing, without leaving space between words**.
 Did she make a spelling error? She just retyped the word, adding it to the original misspelled word.
@@ -161,9 +161,9 @@ In order to tackle this, I've **renamed the buttons. Space becomes "End of word"
 
 
 ## Step 3: Always open the app on the "home" screen, never on the "send message" screen
-As mentioned earlier, my grand mother does not find the back button on the phone. The back button may be always found at the same place, it is not a physical button. The home button is more accessible, since, yeah, it's a real **button**.
+As mentioned earlier, my grandmother does not find the back button on the phone. The back button may be always found at the same place, it is not a physical button. The home button is more accessible, since, yeah, it's a real **button**.
 
-**In practice, my grand mother always presses the home button.**
+**In practice, my grandmother always presses the home button.**
 
 That's not a problem. In the contrary: I've told her: "If you're stuck, just press that button. Then you can re-open the app and start over again".
 
@@ -231,13 +231,13 @@ My goal was to limit the learning curve, to avoid scaring her away. This means:
 * provide a simple way to restart, when she gets stuck.
 
 #### Writing text messages... does not come naturally
-Still, my grand mother has to learn a few things. One challenge that surprised me: **how to express her thoughts in a short message**.
+Still, my grandmother has to learn a few things. One challenge that surprised me: **how to express her thoughts in a short message**.
 
 Expressing your thoughts in a letter or phone call is a whole lot easier. She is used to write by hand. She has the space to write longs texts. Fixing writing mistakes is just crossing out words, or starting a new letter. In phone call, you get immediate response. There is room to explain the context you're in.
 
 Sending texts may be second nature for most people, but it's not for someone who has never had to do it in her entire life.
 
-### Will my grand mother's live improve with the app?
-Time will tell if my grand mother **can** and **wants to** actually use the app. I really hope so.
+### Will my grandmother's live improve with the app?
+Time will tell if my grandmother **can** and **wants to** actually use the app. I really hope so.
 
 It's hard to communicate with someone who cannot hear you properly. For us, as family, but most certainly for her. I hope this app gives her back the ability to have qualitative conversations with people. 
