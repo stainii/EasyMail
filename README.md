@@ -117,15 +117,15 @@ In order to use this keyboard, you have to [change your phone settings](https://
 
 ## 6. Disable screen rotation
 Seeing that your screen changes completely is **scary** for non-tech-savvy people. Especially if it happens "for no reason", for example: when you tilt the phone slightly.
-That's why I **have turned of screen rotation** on my grandmother's phone.
+That's why I **have turned off screen rotation** on my grandmother's phone.
 
 **At the moment of writing, there is nothing in place to support screen rotation in the app.**
 
-## 7. Turn of battery saving for this app
+## 7. Turn off battery saving for this app
 Android is very protective about the phone's battery life. When an app uses, relative to other apps, too much battery, it get's less CPU time.
 Since, in my case, this app is the sole meaningful app on the phone, Android is a bit too eager to limit the mail checks in the app.
 
-A workaround: turn of battery saving **for this app** (not for all apps per se).  [More info](https://www.verizonwireless.com/support/knowledge-base-202636/)
+A workaround: turn off battery saving **for this app** (not for all apps per se).  [More info](https://www.verizonwireless.com/support/knowledge-base-202636/)
 
 # Contributing to this project
 I'm not an Android developer, and that's probably clear when you have a look at the code.
