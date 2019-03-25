@@ -28,7 +28,7 @@
     }
   ],
   "responsePatterns": [
-    "<(.+)@(.+)>",
+    "From: .* <(.+)@(.+)>",
     "Op .+ heeft .+ het volgende geschreven",
     "Verzonden vanaf mijn Samsung",
     "Verzonden vanaf Samsung",
