@@ -30,23 +30,21 @@ public class MailFormatter {
         String lines[] = mail.split("\\r?\\n");
 
         if (lines.length > 0) {
-            StringBuilder result = new StringBuilder(lines[0]);
+            StringBuilder result = new StringBuilder();
 
-            if (lines.length > 1) {
-                boolean referenceToPreviousMailFound = false;
-                int i = 1;
-                do {
-                    if (thereIsAReferenceToPreviousMailOnThisLine(lines[i])) {
-                        result.append(System.lineSeparator());
-                        result.append(stripAwayReferenceToPreviousMailOnThisLine(lines[i]));
-                        referenceToPreviousMailFound = true;
-                    } else {
-                        result.append(System.lineSeparator());
-                        result.append(lines[i]);
-                        i++;
-                    }
-                } while (!referenceToPreviousMailFound && lines.length > i);
-            }
+            boolean referenceToPreviousMailFound = false;
+            int i = 0;
+            do {
+                if (thereIsAReferenceToPreviousMailOnThisLine(lines[i])) {
+                    result.append(System.lineSeparator());
+                    result.append(stripAwayReferenceToPreviousMailOnThisLine(lines[i]));
+                    referenceToPreviousMailFound = true;
+                } else {
+                    result.append(System.lineSeparator());
+                    result.append(lines[i]);
+                    i++;
+                }
+            } while (!referenceToPreviousMailFound && lines.length > i);
 
             return result.toString().trim();
         } else {

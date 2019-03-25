@@ -32,8 +32,9 @@ public class MailFormatterTest {
     public void init() throws JSONException {
         doReturn(settings).when(settingRepository).getSettings();
         doReturn(responsePatterns).when(settings).getJSONArray("responsePatterns");
-        doReturn(1).when(responsePatterns).length();
-        doReturn("<(.+)@(.+)>").when(responsePatterns).getString(0);
+        doReturn(2).when(responsePatterns).length();
+        doReturn("From: .* <(.+)@(.+)>").when(responsePatterns).getString(0);
+        doReturn("Verzonden vanaf Samsung").when(responsePatterns).getString(1);
 
         mailFormatter = new MailFormatter(settingRepository);
     }
@@ -49,6 +50,13 @@ public class MailFormatterTest {
     public void stripAwayPreviousMessagesWhenMailContainsPreviousMessages() {
         String mail = "Hello!\nHow are you?\nMy email is stijnhooft@hotmail.com...\n\nFrom: Stijn Hooft <stijnhooft@hotmail.com>\nSent at: 2018-11-29 11:00:00\n\nThis is a previous message";
         String expected = "Hello!" + System.lineSeparator() + "How are you?" + System.lineSeparator() + "My email is stijnhooft@hotmail.com...";
+        assertEquals(expected, mailFormatter.stripAwayPreviousMessages(mail));
+    }
+
+    @Test
+    public void stripAwayPreviousMessagesWhenEverythingIsPutOnASingleLine() {
+        String mail = "Hello! How are you? My email is stijnhooft@hotmail.com... Verzonden vanaf Samsung-tablet.";
+        String expected = "Hello! How are you? My email is stijnhooft@hotmail.com...";
         assertEquals(expected, mailFormatter.stripAwayPreviousMessages(mail));
     }
 }
