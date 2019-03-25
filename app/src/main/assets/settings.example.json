@@ -30,7 +30,8 @@
   "responsePatterns": [
     "<(.+)@(.+)>",
     "Op .+ heeft .+ het volgende geschreven",
-    "Verzonden vanaf mijn Samsung Galaxy-smartphone",
+    "Verzonden vanaf mijn Samsung",
+    "Verzonden vanaf Samsung",
     "-------- Oorspronkelijk bericht"
   ]
 }
