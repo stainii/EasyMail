@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import be.stijnhooft.easymail.backend.repository.SettingRepository;
@@ -36,6 +37,8 @@ public class MailFormatter {
                 int i = 1;
                 do {
                     if (thereIsAReferenceToPreviousMailOnThisLine(lines[i])) {
+                        result.append(System.lineSeparator());
+                        result.append(stripAwayReferenceToPreviousMailOnThisLine(lines[i]));
                         referenceToPreviousMailFound = true;
                     } else {
                         result.append(System.lineSeparator());
@@ -69,5 +72,15 @@ public class MailFormatter {
             }
         }
         return false;
+    }
+
+    private String stripAwayReferenceToPreviousMailOnThisLine(String line) {
+        for (Pattern pattern : responsePatterns) {
+            final Matcher matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                return line.substring(0, matcher.start());
+            }
+        }
+        return line;
     }
 }
