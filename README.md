@@ -30,7 +30,10 @@ This creates limitations, of course:
 
 # How to use this app yourself?
 
-Note: this app has only been tested on a Samsung Galaxy S5, with Android API level 23.
+Note: this app has only been tested on a Samsung Galaxy S5 (API 23) until August 2019.
+Since August 2019, the app is tested on a Samsung Galaxy A10 (API 28).
+
+The latter is the only supported phone and API level.
 It's possible that this app does not work on other phones or other API levels.
 
 ## 1. Create/use a mail account

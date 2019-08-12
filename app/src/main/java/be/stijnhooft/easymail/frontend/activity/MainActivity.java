@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import be.stijnhooft.easymail.backend.model.PersonViewModel;
 import be.stijnhooft.easymail.backend.service.CheckMailService;
 import be.stijnhooft.easymail.backend.service.internal.OnSelectPersonListener;
 import be.stijnhooft.easymail.backend.service.internal.receiver.MailReceiverWorkManagerFactory;
+import be.stijnhooft.easymail.constants.Permissions;
 import be.stijnhooft.easymail.frontend.viewAdapter.MessageThreadViewAdapter;
 import be.stijnhooft.easymail.frontend.viewAdapter.PersonViewAdapter;
 
@@ -63,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
         this.mailViewModel = ViewModelProviders.of(this).get(MailViewModel.class);
         registerToListOfPersons();
         initAddMessageButton();
+        requestPermissions();
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this,
+                Permissions.ALL, Permissions.REQUEST_CODE);
     }
 
     @Override

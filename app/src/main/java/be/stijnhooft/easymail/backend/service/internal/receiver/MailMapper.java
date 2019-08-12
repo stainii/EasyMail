@@ -39,6 +39,10 @@ public class MailMapper {
 
     private String findEmail(Message message) throws MessagingException {
         String from = message.getFrom()[0].toString();
-        return from.substring(from.indexOf("<") + 1, from.indexOf(">"));
+        if (from.contains("<")) {
+            return from.substring(from.indexOf("<") + 1, from.indexOf(">"));
+        } else {
+            return from;
+        }
     }
 }

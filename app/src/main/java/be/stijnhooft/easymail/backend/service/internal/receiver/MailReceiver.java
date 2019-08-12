@@ -1,6 +1,6 @@
 package be.stijnhooft.easymail.backend.service.internal.receiver;
 
-import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.arch.lifecycle.Lifecycle;
@@ -12,7 +12,11 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import androidx.work.Worker;
+import androidx.work.WorkerParameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +32,12 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.search.FlagTerm;
 
-import androidx.work.Worker;
-import androidx.work.WorkerParameters;
 import be.stijnhooft.easymail.EasyMailApplication;
 import be.stijnhooft.easymail.backend.model.Mail;
 import be.stijnhooft.easymail.backend.model.Person;
 import be.stijnhooft.easymail.backend.repository.MailRepository;
 import be.stijnhooft.easymail.backend.repository.PersonRepository;
+import be.stijnhooft.easymail.constants.Notifications;
 import be.stijnhooft.easymail.frontend.activity.MainActivity;
 
 public class MailReceiver extends Worker implements LifecycleOwner {
@@ -59,6 +62,7 @@ public class MailReceiver extends Worker implements LifecycleOwner {
     @NonNull
     @Override
     public Result doWork() {
+        Log.i(MailReceiver.class.getSimpleName(), "Checking for new messages");
         checkForNewMessages(mails -> {
             try {
                 for (Mail mail : mails) {
@@ -150,21 +154,21 @@ public class MailReceiver extends Worker implements LifecycleOwner {
     private void showNotification(Mail mail, Person sender) {
         final EasyMailApplication context = EasyMailApplication.getInstance();
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Notification.Builder builder =
-                new Notification.Builder(context)
-                        .setSmallIcon(sender.getImage())
-                        .setContentTitle(sender.getName())
-                        .setContentText(mail.getMessage())
-                        .setPriority(Notification.PRIORITY_MAX)
-                        .setSound(alarmSound)
-                        .setAutoCancel(true);
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, Notifications.CHANNEL_ID)
+                .setSmallIcon(sender.getImage())
+                .setContentTitle(sender.getName())
+                .setContentText(mail.getMessage())
+                .setSound(alarmSound)
+                .setAutoCancel(true);
 
         Intent targetIntent = new Intent(context, MainActivity.class);
         targetIntent.putExtra(MainActivity.PERSON_TO_SELECT, sender.getEmail());
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.createNotificationChannel(new NotificationChannel(
+                Notifications.CHANNEL_ID, Notifications.CHANNEL_NAME, Notifications.CHANNEL_IMPORTANCE));
         nManager.notify(new Random().nextInt(Integer.MAX_VALUE), builder.build());
     }
 }
