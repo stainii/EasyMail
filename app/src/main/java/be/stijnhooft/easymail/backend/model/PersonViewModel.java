@@ -40,4 +40,5 @@ public class PersonViewModel extends AndroidViewModel {
         person.setNewMessages(false);
         personRepository.update(person);
     }
+
 }

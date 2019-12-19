@@ -22,4 +22,6 @@ public interface MailDao {
     @Query("SELECT * FROM Mail WHERE email = :email")
     LiveData<List<Mail>> findBySender(String email);
 
+    @Query("SELECT * FROM Mail WHERE read = 0")
+    List<Mail> findUnread();
 }

@@ -96,6 +96,22 @@ Sadly, there are is no agreement on how it should be indicated that the message 
 Have a test with the people who want to send mails to the user, with all the mail clients they use (computer, phone, browser).
 Check how these clients start an old message and determine the regexes you need to add.
 
+### 2.4. Notifications
+Notifications can trigger
+* sound
+* a bluetooth signal
+
+You can turn these features on or off with the "enabled" flag.
+
+#### 2.4.1 Bluetooth
+My grandmother has trouble hearing, and doesn't always notice the sound of the phone.
+Therefore, by combining an Arduino, a HC-05 bluetooth module and a little LED strip, I've created a lamp that will shine when she has an unread message.
+
+When receiving a message, the app turns on the phone's bluetooth and sends "1" to a bluetooth device with the name "HC-05".
+
+If you want to use or build your own device, you can change the parameters (device name and the signal that the device listens to to turn on and off) in the settings file. 
+ 
+
 ## 3. Translate
 All text, visible in the app, is set in `/app/src/main/res/values/strings.xml`.
 

@@ -20,6 +20,7 @@ import be.stijnhooft.easymail.backend.model.Person;
 import be.stijnhooft.easymail.backend.model.PersonViewModel;
 import be.stijnhooft.easymail.backend.service.CheckMailService;
 import be.stijnhooft.easymail.backend.service.internal.OnSelectPersonListener;
+import be.stijnhooft.easymail.backend.service.internal.listener.BluetoothService;
 import be.stijnhooft.easymail.backend.service.internal.receiver.MailReceiverWorkManagerFactory;
 import be.stijnhooft.easymail.constants.Permissions;
 import be.stijnhooft.easymail.frontend.viewAdapter.MessageThreadViewAdapter;
@@ -35,9 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String PERSON_TO_SELECT = "PERSON_TO_SELECT";
 
-    private MailViewModel mailViewModel;
+    private final BluetoothService bluetoothService = new BluetoothService();
     private PersonViewModel personViewModel;
-    private MailReceiverWorkManagerFactory mailReceiverWorkManagerFactory;
     private final OnSelectPersonListener ON_SELECT_PERSON = selectedPerson -> {
         Person previousSelectedPerson = personViewModel.getSelectedPerson();
         personViewModel.setSelectedPerson(selectedPerson);
@@ -46,13 +46,16 @@ public class MainActivity extends AppCompatActivity {
             markMessagesAsReadFor(previousSelectedPerson);
         }
 
+        this.selectedPerson = selectedPerson;
         showMailsFor(selectedPerson);
         ((TextView) findViewById(R.id.selected_person_name)).setText(" " + selectedPerson.getName());
     };
-
+    private MailViewModel mailViewModel;
+    private MailReceiverWorkManagerFactory mailReceiverWorkManagerFactory;
     private LiveData<List<Mail>> messagesOfCurrentlySelectedPerson;
     private Handler recurrentTaskHandler = new Handler();
     private Runnable checkForNewMailAtAHighRate;
+    private Person selectedPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         stopRecurringCheckOnNewMails();
+        if (selectedPerson != null) {
+            markMessagesAsReadFor(selectedPerson);
+        }
     }
 
     private void stopRecurringCheckOnNewMails() {
@@ -98,17 +104,24 @@ public class MainActivity extends AppCompatActivity {
     private void markMessagesAsReadFor(Person person) {
         if (messagesOfCurrentlySelectedPerson != null) {
             messagesOfCurrentlySelectedPerson.removeObservers(this);
-            personViewModel.markMessagesAsRead(person);
-            final List<Mail> previousMails = messagesOfCurrentlySelectedPerson.getValue();
-            if (previousMails != null) {
-                mailViewModel.markAsRead(previousMails);
+
+            if (mailViewModel.isThereAnyUnreadMail()) {
+                personViewModel.markMessagesAsRead(person);
+                final List<Mail> previousMails = messagesOfCurrentlySelectedPerson.getValue();
+                if (previousMails != null) {
+                    mailViewModel.markAsRead(previousMails);
+                }
+
+                if (mailViewModel.hasEverythingBeenRead()) {
+                    bluetoothService.onEverythingRead();
+                }
             }
         }
     }
 
     private void showMailsFor(Person person) {
         if (person != null) {
-            messagesOfCurrentlySelectedPerson = mailViewModel.getMessagesFor(person);
+            messagesOfCurrentlySelectedPerson = mailViewModel.getMailFor(person);
             messagesOfCurrentlySelectedPerson.observe(this, this::fillMessageThreadView);
         }
     }

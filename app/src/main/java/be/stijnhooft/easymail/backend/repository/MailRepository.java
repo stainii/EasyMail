@@ -11,6 +11,7 @@ import be.stijnhooft.easymail.backend.db.EasyMailDatabase;
 import be.stijnhooft.easymail.backend.model.Mail;
 import be.stijnhooft.easymail.backend.model.Person;
 import be.stijnhooft.easymail.backend.repository.task.FindMailByEmailTask;
+import be.stijnhooft.easymail.backend.repository.task.FindUnreadMailTask;
 import be.stijnhooft.easymail.backend.repository.task.MarkMailsAsReadTask;
 import be.stijnhooft.easymail.backend.repository.task.SaveMailTask;
 
@@ -33,5 +34,9 @@ public class MailRepository {
 
     public void save(Mail mail) {
         new SaveMailTask(mailDao).execute(mail);
+    }
+
+    public AsyncTask<Void, Void, List<Mail>> findUnread() {
+        return new FindUnreadMailTask(mailDao).execute();
     }
 }

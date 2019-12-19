@@ -16,15 +16,20 @@
     {
       "name": "Ann",
       "email": "example_email@outlook.com",
-      "image": "ann_thumb"
-    }, {
+      "image": "ann_thumb",
+      "bluetoothTurnOnSignal": "1"
+    },
+    {
       "name": "Greet",
       "email": "example_email@telenet.be",
-      "image": "greet_thumb"
-    }, {
+      "image": "greet_thumb",
+      "bluetoothTurnOnSignal": "2"
+    },
+    {
       "name": "Stijn",
       "email": "example_email@hotmail.com",
-      "image": "stijn_thumb"
+      "image": "stijn_thumb",
+      "bluetoothTurnOnSignal": "3"
     }
   ],
   "responsePatterns": [
@@ -33,5 +38,15 @@
     "Verzonden vanaf mijn Samsung",
     "Verzonden vanaf Samsung",
     "-------- Oorspronkelijk bericht"
-  ]
+  ],
+  "notifications": {
+    "sound": {
+      "enabled": true
+    },
+    "bluetooth": {
+      "enabled": false,
+      "deviceName": "HC-05",
+      "turnOffSignal": "0"
+    }
+  }
 }

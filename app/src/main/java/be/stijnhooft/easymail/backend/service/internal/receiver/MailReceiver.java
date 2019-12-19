@@ -1,27 +1,20 @@
 package be.stijnhooft.easymail.backend.service.internal.receiver;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
-import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import javax.mail.Flags;
@@ -37,8 +30,9 @@ import be.stijnhooft.easymail.backend.model.Mail;
 import be.stijnhooft.easymail.backend.model.Person;
 import be.stijnhooft.easymail.backend.repository.MailRepository;
 import be.stijnhooft.easymail.backend.repository.PersonRepository;
-import be.stijnhooft.easymail.constants.Notifications;
-import be.stijnhooft.easymail.frontend.activity.MainActivity;
+import be.stijnhooft.easymail.backend.service.internal.listener.BluetoothService;
+import be.stijnhooft.easymail.backend.service.internal.listener.MailListener;
+import be.stijnhooft.easymail.backend.service.internal.listener.NotificationService;
 
 public class MailReceiver extends Worker implements LifecycleOwner {
 
@@ -47,6 +41,7 @@ public class MailReceiver extends Worker implements LifecycleOwner {
     private final MailRepository mailRepository;
     private final PersonRepository personRepository;
     private final LifecycleRegistry lifecycleRegistry;
+    private final List<MailListener> mailListeners;
 
 
     public MailReceiver(@NonNull Context context, @NonNull WorkerParameters workerParams) {
@@ -56,6 +51,7 @@ public class MailReceiver extends Worker implements LifecycleOwner {
         this.mailRepository = new MailRepository(EasyMailApplication.getInstance());
         this.personRepository = new PersonRepository(EasyMailApplication.getInstance());
         this.lifecycleRegistry = new LifecycleRegistry(this);
+        this.mailListeners = Arrays.asList(new NotificationService(), new BluetoothService());
         lifecycleRegistry.markState(Lifecycle.State.STARTED);
     }
 
@@ -70,7 +66,7 @@ public class MailReceiver extends Worker implements LifecycleOwner {
                     findByEmail.observe(this, sender -> {
                         if (sender != null) {
                             insertIntoDatabase(mail);
-                            showNotification(mail, sender);
+                            mailListeners.forEach(mailListener -> mailListener.onNewMail(mail, sender));
                             markThatPersonHasUnreadMessages(sender);
                             findByEmail.removeObservers(this);
                         }
@@ -91,7 +87,7 @@ public class MailReceiver extends Worker implements LifecycleOwner {
 
     @Override
     public void onStopped() {
-        lifecycleRegistry.markState(Lifecycle.State.DESTROYED);
+//        lifecycleRegistry.markState(Lifecycle.State.DESTROYED);
     }
 
     private void checkForNewMessages(OnReceiveMail callback) {
@@ -149,26 +145,6 @@ public class MailReceiver extends Worker implements LifecycleOwner {
 
     private void insertIntoDatabase(Mail mail) {
         mailRepository.save(mail);
-    }
+    };
 
-    private void showNotification(Mail mail, Person sender) {
-        final EasyMailApplication context = EasyMailApplication.getInstance();
-        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, Notifications.CHANNEL_ID)
-                .setSmallIcon(sender.getImage())
-                .setContentTitle(sender.getName())
-                .setContentText(mail.getMessage())
-                .setSound(alarmSound)
-                .setAutoCancel(true);
-
-        Intent targetIntent = new Intent(context, MainActivity.class);
-        targetIntent.putExtra(MainActivity.PERSON_TO_SELECT, sender.getEmail());
-        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-        NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        nManager.createNotificationChannel(new NotificationChannel(
-                Notifications.CHANNEL_ID, Notifications.CHANNEL_NAME, Notifications.CHANNEL_IMPORTANCE));
-        nManager.notify(new Random().nextInt(Integer.MAX_VALUE), builder.build());
-    }
 }
