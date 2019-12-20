@@ -107,7 +107,7 @@ You can turn these features on or off with the "enabled" flag.
 My grandmother has trouble hearing, and doesn't always notice the sound of the phone.
 Therefore, by combining an Arduino, a HC-05 bluetooth module and a little LED strip, I've created a lamp that will shine when she has an unread message.
 
-When receiving a message, the app turns on the phone's bluetooth and sends "1" to a bluetooth device with the name "HC-05".
+When receiving a message, the app turns on the phone's bluetooth and sends a signal, specific to the sender, to your bluetooth device.
 
 If you want to use or build your own device, you can change the parameters (device name and the signal that the device listens to to turn on and off) in the settings file. 
  
