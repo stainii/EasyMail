@@ -146,6 +146,14 @@ Since, in my case, this app is the sole meaningful app on the phone, Android is 
 
 A workaround: turn off battery saving **for this app** (not for all apps per se).  [More info](https://www.verizonwireless.com/support/knowledge-base-202636/)
 
+## 7. When using Bluetooth notifications: pair with the bluetooth device
+When bluetooth notifications are turned on, the app will turn on bluetooth and connect with your device.
+However, your device needs to be paired manually at least once, first.
+
+Open your bluetooth settings, connect with you new device.
+Once the device has paired once, your phone will remember this device and the app can connect with it when receiving a message.
+
+
 # Contributing to this project
 I'm not an Android developer, and that's probably clear when you have a look at the code.
 Feel free to comment in the issues, or create pull requests for improvements.
