@@ -51,13 +51,15 @@ public class NotificationService implements MailListener {
                 .setAutoCancel(true);
 
         if (soundEnabled) {
-            builder.setSound(alarmSound);
+            builder = builder.setSound(alarmSound);
         }
 
         Intent targetIntent = new Intent(context, MainActivity.class);
         targetIntent.putExtra(MainActivity.PERSON_TO_SELECT, sender.getEmail());
+
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        builder = builder.setContentIntent(contentIntent);
+
         NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.createNotificationChannel(new NotificationChannel(
                 Notifications.CHANNEL_ID, Notifications.CHANNEL_NAME, Notifications.CHANNEL_IMPORTANCE));

@@ -54,8 +54,10 @@ public class BluetoothService implements MailListener {
 
     @Override
     public void onNewMail(Mail mail, Person sender) {
-        String bluetoothOnSignal = personNameAndBluetoothOnSignal.get(sender.getName());
-        sendBluetoothSignal(bluetoothOnSignal);
+        if (enabled) {
+            String bluetoothOnSignal = personNameAndBluetoothOnSignal.get(sender.getName());
+            sendBluetoothSignal(bluetoothOnSignal);
+        }
     }
 
     public void onEverythingRead() {
